@@ -28,9 +28,7 @@ jobs:
 
       - name: Release
         if: startsWith(github.ref, 'refs/tags/')
-        shell: bash
-        run: |
-          gh release delete ${{ github.ref_name }} --yes 2>/dev/null || true
-          gh release create ${{ github.ref_name }} build/Release/Dorian.exe
-        env:
-          GH_TOKEN: ${{ github.token }}
+        uses: softprops/action-gh-release@v2
+        with:
+          files: build/Release/Dorian.exe
+          fail_on_unmatched_files: true
